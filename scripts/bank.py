@@ -78,34 +78,34 @@ def main():
     db = Database(filename='db.sqlite3')
     db.create_table()
     print('Service started!\n')
-    
+
     try:
         while True:
             request = input('> ')
             if request == 'exit':
                 break
-        
+
             response = parse_requests(request)
             cmd_response = response.get('command')
             match cmd_response:
-                
+
                 case 'deposit':
                     db.deposit(response)
                     print('[+] Deposit operation was successful!\n')
-                
+
                 case 'withdraw':
                     db.withdraw(response)
                     print('[+] Withdraw operation was successful!\n')
-                
+
                 case 'show_bank_statement':
                     data = db.show_bank_statement(response)
                     print_table(data)
-   
+
     except Exception as ex:
         print(f'[-] Error possibly invalid request - {ex}\n')
 
     finally:
-       db.close()
+        db.close()
     print('Good bye!!!')
 
 
