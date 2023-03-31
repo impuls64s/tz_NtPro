@@ -10,6 +10,7 @@
 
 ## Prerequisites:
 * python 3.10
+* Git
 
 ## Установка и запуск:  
 <pre>
