@@ -50,7 +50,7 @@ def validator(cmd, key, value):
             return key, value
 
 
-def parse_requets(req):
+def parse_requests(req):
     req_lst = req.split('--')  # Разделяем строку на отдельные части по --
     req_cmd = req_lst[0].strip()  # Определяем переданную команду
     req_args = req_lst[1:]  # Определяем аргументы запроса
@@ -74,32 +74,42 @@ def parse_requets(req):
     return value
 
 
-def main(db):
-    request = input('> ')
-    if request != 'exit':
-        try:
-            response = parse_requets(request)
-            cmd_response = response.get('command')
-            if cmd_response == 'deposit':
-                db.deposit(response)
-                print('[+] Deposit operation was successful!\n')
-            if cmd_response == 'withdraw':
-                db.withdraw(response)
-                print('[+] Withdraw operation was successful!\n')
-            if cmd_response == 'show_bank_statement':
-                data = db.show_bank_statement(response)
-                print_table(data)
-            main(db)
-        except Exception as ex:
-            print(f'[-] Error possibly invalid request - {ex}\n')
-            main(db)
-        finally:
-            db.close()
-
-
-if __name__ == '__main__':
+def main():
     db = Database(filename='db.sqlite3')
     db.create_table()
     print('Service started!\n')
-    main(db)
+    
+    try:
+        while True:
+            request = input('> ')
+            if request == 'exit':
+                break
+        
+            response = parse_requests(request)
+            cmd_response = response.get('command')
+            match cmd_response:
+                
+                case 'deposit':
+                    db.deposit(response)
+                    print('[+] Deposit operation was successful!\n')
+                
+                case 'withdraw':
+                    db.withdraw(response)
+                    print('[+] Withdraw operation was successful!\n')
+                
+                case 'show_bank_statement':
+                    print(response)
+                    data = db.show_bank_statement(response)
+                    print(data)
+                    print_table(data)
+   
+    except Exception as ex:
+        print(f'[-] Error possibly invalid request - {ex}\n')
+
+    finally:
+       db.close()
     print('Good bye!!!')
+
+
+if __name__ == '__main__':
+    main()
