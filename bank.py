@@ -98,9 +98,7 @@ def main():
                     print('[+] Withdraw operation was successful!\n')
                 
                 case 'show_bank_statement':
-                    print(response)
                     data = db.show_bank_statement(response)
-                    print(data)
                     print_table(data)
    
     except Exception as ex:
