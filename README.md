@@ -8,6 +8,8 @@
 4) Если все данные прошли проверку, parse_requests() возвращает словарь. Пример: <b>{'command': 'deposit', 'client': 'John Jones', 'amount': 100, 'description': 'ATM Deposit'}</b>
 5) Далее из этого словаря определяется команда для обращения к БД. И в метод класса Database предается полученный словарь.
 
+## Prerequisites:
+* python 3.10
 
 ## Установка и запуск:  
 <pre>
