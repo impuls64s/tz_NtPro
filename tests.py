@@ -1,5 +1,5 @@
 import unittest
-from bank import parse_requets, validator
+from bank import parse_requests, validator
 
 
 class Test_Bank(unittest.TestCase):
@@ -12,15 +12,15 @@ class Test_Bank(unittest.TestCase):
         self.assertEqual(validator('show_bank_statement', 'since', '2023-03-30 00:00:00'), ('since', '2023-03-30 00:00:00'))
 
 
-    def test_parse_requets(self):
+    def test_parse_requests(self):
         valid_req = 'deposit --client="John Jones" --amount=100 --description="ATM Deposit"'
         valid_res = {'command': 'deposit', 'client': 'John Jones', 'amount': 100.0, 'description': 'ATM Deposit'}
         
         invalid_req = 'bad_command --client="John Jones" --amount=100 --description="ATM Deposit"'
         invalid_res = {}
 
-        self.assertEqual(parse_requets(valid_req), valid_res)
-        self.assertEqual(parse_requets(invalid_req), invalid_res)
+        self.assertEqual(parse_requests(valid_req), valid_res)
+        self.assertEqual(parse_requests(invalid_req), invalid_res)
 
 
 if __name__ == '__main__':
