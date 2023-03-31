@@ -10,7 +10,7 @@ CLI = {
 }
 
 
-def print_table(data):
+def print_table(data: dict):
     mytable = PrettyTable()
     mytable.field_names = ["Date",
                            "Description",
@@ -29,7 +29,7 @@ def print_table(data):
     print(mytable)
 
 
-def validator(cmd, key, value):
+def validator(cmd: str, key: str, value: str) -> tuple:
     flags = CLI.get(cmd)
 
     if key and value and key in flags:
@@ -50,7 +50,7 @@ def validator(cmd, key, value):
             return key, value
 
 
-def parse_requests(req):
+def parse_requests(req: str) -> dict:
     req_lst = req.split('--')  # Разделяем строку на отдельные части по --
     req_cmd = req_lst[0].strip()  # Определяем переданную команду
     req_args = req_lst[1:]  # Определяем аргументы запроса
